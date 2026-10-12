@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="01-InvoiceExport/InvoiceExport/InvoiceExport/InvoiceExport.csproj" />
+  <Project Path="Async_Await_assignment/Async_Await_assignment.csproj" />
+</Solution>
