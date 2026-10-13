@@ -2,5 +2,6 @@
   <Project Path="01-InvoiceExport/InvoiceExport/InvoiceExport/InvoiceExport.csproj" />
   <Project Path="02-TableBooking/TableBooking/TableBooking/TableBooking.csproj" />
   <Project Path="04-MenuViews/MenuViews/MenuViews/MenuViews.csproj" />
+  <Project Path="05-ViewsAndEmails/ViewsAndEmails/ViewsAndEmails/ViewsAndEmails.csproj" />
   <Project Path="Async_Await_assignment/Async_Await_assignment.csproj" />
 </Solution>
