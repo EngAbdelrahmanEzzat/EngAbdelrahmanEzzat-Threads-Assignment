@@ -39,7 +39,7 @@ namespace OrderProcessing.Shared
 
             var tempFilePath = Path.Combine(
                               _dataDirectory,
-                              $"{Guid.NewGuid()}_{Path.GetFileName(filePath)}");
+                              $"{Guid.NewGuid()}_{Path.GetFileName(filePath)}");//هنا عملت الحته دي عشان لو حصل كانسل ولا خطا الملف الاصلي ميحصلش فيه حاجه
 
             var json = JsonSerializer.Serialize(data, JsonConfig.Options);
 
@@ -67,6 +67,30 @@ namespace OrderProcessing.Shared
             }
 
         }
-            
+        public List<T> Read<T>(string fileName)
+        {
+            string path = GetFilePath(fileName);
+
+            if (!File.Exists(path))
+            {
+                return new List<T>();
+            }
+
+            string json = File.ReadAllText(path);
+
+            return JsonSerializer.Deserialize<List<T>>(json, JsonConfig.Options)
+                   ?? new List<T>();
+        }
+
+        public void Write<T>(string fileName, List<T> data)
+        {
+            Directory.CreateDirectory(_dataDirectory);
+            string path = GetFilePath(fileName);
+
+            string json = JsonSerializer.Serialize(data, JsonConfig.Options);
+
+            File.WriteAllText(path, json);
+        }
+
     }
 }
