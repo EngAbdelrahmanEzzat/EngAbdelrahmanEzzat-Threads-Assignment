@@ -121,6 +121,6 @@ namespace OrderProcessing.Shared
         public int TopSellingQuantity { get; set; }
 
         public decimal AverageOrderValue { get; set; }
-        public DateTime GeneratedAt { get; set; }
+        public DateTime GeneratedAt { get; set; } = DateTime.Now;
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using OrderProcessing;
@@ -9,6 +9,7 @@ namespace OrderProcessing.Phase1.Repositories
     public class OrderRepository
     {
         private readonly JsonFileStore _store;
+        private static readonly SemaphoreSlim _semaphore = new(1, 1);
 
 
         public OrderRepository(JsonFileStore store)
@@ -23,55 +24,63 @@ namespace OrderProcessing.Phase1.Repositories
 
         public async Task SaveAsync(Order order, CancellationToken ct)
         {
-            await SimulatedLatency.StepAsync(
-                nameof(OrderRepository),
-                "Opening connection...",
-                200,
-                ct);
-
-            await SimulatedLatency.StepAsync(
-                nameof(OrderRepository),
-                "Beginning transaction...",
-                100,
-                ct);
-
-            List<Order> orders = await _store.ReadAsync<Order>(
-                DataFiles.Orders,
-                ct);
-
-            bool orderExists = false;
-
-            for (int i = 0; i < orders.Count; i++)
+            await _semaphore.WaitAsync(ct);
+            try
             {
-                if (orders[i].Id == order.Id)
+                await SimulatedLatency.StepAsync(
+                    nameof(OrderRepository),
+                    "Opening connection...",
+                    200,
+                    ct);
+
+                await SimulatedLatency.StepAsync(
+                    nameof(OrderRepository),
+                    "Beginning transaction...",
+                    100,
+                    ct);
+
+                List<Order> orders = await _store.ReadAsync<Order>(
+                    DataFiles.Orders,
+                    ct);
+
+                bool orderExists = false;
+
+                for (int i = 0; i < orders.Count; i++)
                 {
-                    orders[i] = order;
-                    orderExists = true;
-                    break;
+                    if (orders[i].Id == order.Id)
+                    {
+                        orders[i] = order;
+                        orderExists = true;
+                        break;
+                    }
                 }
-            }
 
-            if (!orderExists)
+                if (!orderExists)
+                {
+                    orders.Add(order);
+                }
+
+                await SimulatedLatency.StepAsync(
+                    nameof(OrderRepository),
+                    "Inserting/Updating order...",
+                    400,
+                    ct);
+
+                await _store.WriteAsync<Order>(
+                    DataFiles.Orders,
+                    orders,
+                    ct);
+
+                await SimulatedLatency.StepAsync(
+                    nameof(OrderRepository),
+                    "Committing transaction...",
+                    200,
+                    ct);
+            }
+            finally
             {
-                orders.Add(order);
+                _semaphore.Release();
             }
-
-            await SimulatedLatency.StepAsync(
-                nameof(OrderRepository),
-                "Inserting/Updating order...",
-                400,
-                ct);
-
-            await _store.WriteAsync<Order>(
-                DataFiles.Orders,
-                orders,
-                ct);
-
-            await SimulatedLatency.StepAsync(
-                nameof(OrderRepository),
-                "Committing transaction...",
-                200,
-                ct);
         }
 
         public async Task<List<Order>> GetAllAsync(CancellationToken ct)
@@ -118,7 +127,6 @@ namespace OrderProcessing.Phase1.Repositories
         }
     }
 
-    
 
 
 }
