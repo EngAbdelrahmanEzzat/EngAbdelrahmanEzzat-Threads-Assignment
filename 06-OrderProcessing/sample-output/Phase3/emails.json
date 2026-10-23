@@ -1,0 +1,82 @@
+[
+  {
+    "id": "d91f8368-16be-49fe-aafb-698efb9fcf9a",
+    "orderId": 1,
+    "to": "ahmed.ali@example.com",
+    "subject": "Order #1 Confirmation",
+    "body": "Thank you! Your order #1 of amount $980.00 has been processed.",
+    "sentAt": "2026-10-23T20:22:26.3325694+03:00",
+    "attempts": 2,
+    "lastError": null
+  },
+  {
+    "id": "bb6edaa1-0cb5-4ebb-98d1-c50e9fa27187",
+    "orderId": 3,
+    "to": "omar.hassan@example.com",
+    "subject": "Order #3 Confirmation",
+    "body": "Thank you! Your order #3 of amount $146.70 has been processed.",
+    "sentAt": "2026-10-23T20:22:28.2737425+03:00",
+    "attempts": 2,
+    "lastError": null
+  },
+  {
+    "id": "68a97a32-e8db-4ef7-bb09-763bd12f6950",
+    "orderId": 8,
+    "to": "laila.mahmoud@example.com",
+    "subject": "Order #8 Confirmation",
+    "body": "Thank you! Your order #8 of amount $960.00 has been processed.",
+    "sentAt": "2026-10-23T20:22:29.2601459+03:00",
+    "attempts": 2,
+    "lastError": null
+  },
+  {
+    "id": "02875816-71e1-4b38-83b7-a091876c6c23",
+    "orderId": 5,
+    "to": "youssef.adel@example.com",
+    "subject": "Order #5 Confirmation",
+    "body": "Thank you! Your order #5 of amount $331.50 has been processed.",
+    "sentAt": "2026-10-23T20:22:30.250316+03:00",
+    "attempts": 2,
+    "lastError": null
+  },
+  {
+    "id": "579afb77-9a46-43c7-ad43-cd3a1924dbf8",
+    "orderId": 7,
+    "to": "karim.samir@example.com",
+    "subject": "Order #7 Confirmation",
+    "body": "Thank you! Your order #7 of amount $218.00 has been processed.",
+    "sentAt": "2026-10-23T20:22:31.2223056+03:00",
+    "attempts": 2,
+    "lastError": null
+  },
+  {
+    "id": "b7294efc-6f66-4893-ae00-a0ebfca7e207",
+    "orderId": 2,
+    "to": "sara.mohamed@example.com",
+    "subject": "Order #2 Confirmation",
+    "body": "Thank you! Your order #2 of amount $767.30 has been processed.",
+    "sentAt": "2026-10-23T20:22:32.1996564+03:00",
+    "attempts": 2,
+    "lastError": null
+  },
+  {
+    "id": "50b23ddd-fc04-4df8-afbb-281201c9c026",
+    "orderId": 10,
+    "to": "dina.fathy@example.com",
+    "subject": "Order #10 Confirmation",
+    "body": "Thank you! Your order #10 of amount $93.80 has been processed.",
+    "sentAt": "2026-10-23T20:22:33.2056347+03:00",
+    "attempts": 2,
+    "lastError": null
+  },
+  {
+    "id": "b5bddeb3-4cd6-4687-bb7f-6e0973ac604d",
+    "orderId": 6,
+    "to": "nour.khaled@example.com",
+    "subject": "Order #6 Confirmation",
+    "body": "Thank you! Your order #6 of amount $42.90 has been processed.",
+    "sentAt": "2026-10-23T20:22:34.1670688+03:00",
+    "attempts": 2,
+    "lastError": null
+  }
+]
