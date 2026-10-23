@@ -111,3 +111,44 @@ public async Task ProcessOrderAsync(Order order, Customer customer)
 تعمل await عليها
 
 4. async void مش هتنفع تتعمل بسسب ان ال async مش هتنفع تشتغل مع vpid لانها بتشتغل مع task 
+
+
+## Phase 4 questions :
+
+1. For each of Tasks 10.1–10.4: which tool did you use, and why can't "start, then await one by one" meet the requirement?
+- Task 10.1 (Live checkout progress):
+  - الأداة: Task.WhenEach (في .NET 9 و .NET 10).
+  - ليه start ثم await ورا بعض متنفعش: لأنك لو انتظرتهم بالترتيب (1 ثم 2 ثم 3...)، لو طلب اتأخر 5 ثواني وكان فيه طلب بعده خلص في ثانية واحدة، الشاشة هتفضل معلقة 5 ثواني ومش هتعرض الطلب السريع في وقته، فمش هتحقق متطلب عرض كل طلب فور انتهائه وبترتيب انتهاء العمليات الفعلي.
+- Task 10.2 (Customer dashboard):
+  - الأداة: Task.WhenAll.
+  - ليه start ثم await ورا بعض متنفعش: لأننا محتاجين نشغل الـ 4 استعلامات في نفس اللحظة وننتظرهم معاً. لو عملت await ورا بعض، مع أول خطأ هيحصل الدالة هتقف وتخرج ومش هتقدر تعرف الأخطاء اللي حصلت في باقي العمليات التانية.
+- Task 10.3 (Fastest shipping quote):
+  - الأداة: Task.WhenAny مع CancellationTokenSource.
+  - ليه start ثم await ورا بعض متنفعش: لأن الهدف اختيار أول عرض سعر ناجح وسريع يصل فوراً وإلغاء الباقي، والالتزام بمهلة 1.2 ثانية. الانتظار ورا بعض بيجبرك تستنى الأبطأ أو الفاشل أولاً قبل ما تبص على الباقيين.
+- Task 10.4 A (CPU-bound Fraud scoring):
+  - الأداة: Parallel.For.
+  - ليه start ثم await ورا بعض متنفعش: لأن العمليات هنا حسابية تستهلك المعالج (CPU-bound)، والـ await العادي لا يوزع الحسابات على أنوية الـ CPU بالتساوي. Parallel.For هي المسؤولة عن تقسيم البيانات (Data Partitioning) واستغلال جميع أنوية المعالج (ProcessorCount).
+- Task 10.4 B (I/O-bound Email re-send):
+  - الأداة: Parallel.ForEachAsync مع MaxDegreeOfParallelism = 4.
+  - ليه start ثم await ورا بعض متنفعش: الـ await المتتالي هيخليهم بطيئين جداً واحداً تلو الآخر، وتشغيلهم كلهم مرة واحدة بدون تحكم قد يسبب ضغطاً مفاجئاً ويتجاوز الحد المسموح. Parallel.ForEachAsync توفر خنقاً آمناً للـ Concurrency بحيث لا تزيد المهام قيد التشغيل عن 4 في نفس اللحظة.
+
+2. In 10.2, when several loads fail, how do you get every exception? What does a plain await give you?
+- الـ await العادي (Plain await) بيرمي أول Exception حصل فقط ويتجاهل الباقي للتوافق مع try/catch.
+- عشان تحصل على كل الأخطاء، بنفحص خاصية task.Exception في كائن الـ Task المجمعة الناتجة من Task.WhenAll، وهي من نوع AggregateException وتضم في خاصية InnerExceptions قائمة بكل الاستثناءات التي حدثت في جميع المهام دون استثناء.
+
+3. In 10.3, what happens to the losing carriers if you never cancel them?
+- تظل الشركات الخاسرة مستمرة في العمل في الخلفية (Background execution) تستهلك الشبكة وموارد النظام والـ Sockets بلا أي فائدة، مما يسبب إهداراً للموارد (Resource Leaks) وزيادة استهلاك الـ CPU والترافيك غير الضروري.
+
+4. Why does 10.4 A get faster with more CPU cores, while 10.4 B does not depend on the number of cores?
+- 10.4 A (Fraud Scoring): عملية CPU-bound تعتمد كلياً على العمليات الحسابية داخل المعالج، لذا كلما زاد عدد الأنوية زادت قدرة المعالج على تنفيذ مهام أكثر في نفس اللحظة الزمنية الحقيقية (True Parallelism).
+- 10.4 B (Email Re-send): عملية I/O-bound يضيع أغلب وقتها في انتظار استجابة الشبكة وخادم البريد (Network latency) دون أي مجهود يذكر من المعالج، كما أن معدل التزامن مقيد صراحة برقم ثابت (4 مهام متزامنة كحد أقصى) فلا يؤثر عدد الأنوية في سرعتها.
+
+5. What is the difference between parallel work (10.4 A) and concurrent asynchronous work (10.1)?
+- العمل المتوازي (Parallel): مخصص لعمليات الـ CPU-bound، ويحتاج أنوية متعددة حقيقية تعمل معاً على أجزاء مختلفة من البيانات في نفس اللحظة.
+- العمل غير المتزامن التزامني (Concurrent Async): مخصص لعمليات الـ I/O-bound، ولا يحتاج أنوية متعددة، بل يعتمد على تحرير الخيوط وعدم عمل Block أثناء انتظار الرد من الشبكة أو الديسك، فيستطيع خيط واحد أو خيوط قليلة إدارة مئات الطلبات المنتظرة.
+
+6. Show a cancelled run (--cancel-after) and explain what happened to the orders, the stock and the payments.
+- عند تفعيل الإلغاء عبر CancellationToken (مثلاً بعد 1500ms):
+  - الطلبات (Orders): الطلبات التي انتهت قبل المهلة تُسجل Completed، والطلبات التي كانت قيد التنفيذ تتوقف فوراً وترمي OperationCanceledException ولا تكتمل.
+  - المخزون (Stock): بفضل استخدام try/finally وكتل معالجة الأخطاء والـ ReleaseStock، أي مخزون كان قد تم حجزه لطلب أُلغي يتم إرجاعه فوراً للمخزن لمنع أي ضياع في المخزون.
+  - المدفوعات (Payments): الطلبات المكتملة فقط هي التي تُحفظ مدفوعاتها في payments.json، بينما الطلبات التي أُلغيت قبل إتمام الدفع لا يتم سحب أي أموال لها أو تسجيل أي عملية دفع غير مكتملة.

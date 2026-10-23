@@ -1,10 +1,13 @@
-﻿using OrderProcessing.Phase1;
+using OrderProcessing.Phase1;
 using OrderProcessing.Phase1.Repositories;
 using OrderProcessing.Shared;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace OrderProcessing.Phase2
 {
@@ -17,13 +20,45 @@ namespace OrderProcessing.Phase2
         private readonly OrderValidator _ordervalidator;
         private readonly OrderRepository _orderrepository;
         private readonly ReportGenerator _reprtgenerator;
+
+        public Phase2Runner()
+        {
+            _store = new JsonFileStore();
+            var customerRepository = new CustomerRepository(_store);
+            var couponRepository = new CouponRepository(_store);
+            var productRepository = new ProductRepository(_store);
+            _orderrepository = new OrderRepository(_store);
+
+            var pricingService = new PricingService(_store, customerRepository, couponRepository, new[] { 7 });
+            _orderpricer = new OrderPricer(pricingService);
+
+            _raceconditiondemo = new RaceConditionDemo(_store);
+
+            _ordervalidator = new OrderValidator(
+                customerRepository,
+                productRepository,
+                couponRepository,
+                _orderrepository);
+
+            _orderprocessor = new OrderProcessorV2(
+                _store,
+                _raceconditiondemo,
+                _orderpricer,
+                _orderrepository);
+
+            _reprtgenerator = new ReportGenerator(
+                _orderrepository,
+                productRepository,
+                _store);
+        }
+
         public Phase2Runner(OrderProcessorV2 orderprocessor
             , JsonFileStore store
-            ,RaceConditionDemo raceConditionDemo
+            , RaceConditionDemo raceConditionDemo
             , OrderPricer orderpricer
             , OrderValidator ordervalidator
             , OrderRepository orderrepository
-            ,ReportGenerator reprtgenerator)
+            , ReportGenerator reprtgenerator)
         {
             _store = store ?? throw new ArgumentNullException(nameof(store));
             _raceconditiondemo = raceConditionDemo ?? throw new ArgumentNullException(nameof(raceConditionDemo));
@@ -34,9 +69,10 @@ namespace OrderProcessing.Phase2
             _reprtgenerator = reprtgenerator ?? throw new ArgumentNullException(nameof(reprtgenerator));
         }
 
+       
+
         public async Task RunAsync(CancellationToken ct = default)
         {
-           
             await DataSeeder.ResetAsync(ct);
 
             await _raceconditiondemo.RunAsync(ct);
@@ -47,22 +83,23 @@ namespace OrderProcessing.Phase2
             Console.WriteLine(orders.Count);
             await _orderpricer.PriceOrderSequentialAsync(orders[0], ct);
 
-           
             foreach (var item in orders)
             {
-                //ده بيعمل فاليدات وبيعمل برضو سيف
                 await _ordervalidator.ValidateOrderAsync(item, ct);
-
             }
+
             // Start measuring processing time.
             Stopwatch stopwatch = Stopwatch.StartNew();
 
             List<Order> validatedOrders = orders.Where(order => order.Status == OrderStatus.Validated).ToList();
 
             List<Task<bool>> tasks = validatedOrders.Select(order => _orderprocessor.ProcessValidatedOrderAsync(order, ct)).ToList();
+
             // Step 7: Print the status of the first task immediately.
             if (tasks.Count > 0)
-            { Console.WriteLine($"Task[0] Status: {tasks[0].Status}"); }
+            {
+                Console.WriteLine($"Task[0] Status: {tasks[0].Status}");
+            }
 
             // Step 8: Wait 1 second and print the status of every task.
             await Task.Delay(1000, ct);
@@ -75,7 +112,6 @@ namespace OrderProcessing.Phase2
             }
 
             // Step 9: Await each task independently.
-            // A failure in one order must not stop processing the others.
             Console.WriteLine("\n--- Processing Results ---");
 
             for (int i = 0; i < tasks.Count; i++)
@@ -114,9 +150,8 @@ namespace OrderProcessing.Phase2
             {
                 Console.WriteLine($"Task[{i}] Status: {tasks[i].Status}");
             }
+
             stopwatch.Stop();
-            // Step 11: Print total elapsed time.
-            // Start the Stopwatch before processing begins.
             Console.WriteLine($"Total elapsed time: {stopwatch.ElapsedMilliseconds} ms");
 
             // Step 12: Read orders.json and verify the record count.
@@ -134,7 +169,7 @@ namespace OrderProcessing.Phase2
                 Console.WriteLine(
                     $"Warning: Expected 20 orders, but found {savedOrders.Count}.");
             }
-         
+
             // Generate the final report.
             Task<Report> reportTask = _reprtgenerator.GenerateAsync(ct);
 
@@ -153,10 +188,6 @@ namespace OrderProcessing.Phase2
             Console.WriteLine($"Average Order Value: {report.AverageOrderValue:F2}");
             Console.WriteLine(
                 $"Top Selling Product: {report.TopSellingProduct} ({report.TopSellingQuantity} units)");
-
-
         }
     }
 }
-        
-    

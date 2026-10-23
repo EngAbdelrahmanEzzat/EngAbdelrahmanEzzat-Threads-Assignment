@@ -1,0 +1,372 @@
+[
+  {
+    "id": "34e0c158-f929-4dcf-8dd9-d9ae08b36232",
+    "orderId": 20,
+    "to": "dina.fathy@example.com",
+    "subject": "Order #20 Confirmation",
+    "body": "Thank you! Your order #20 of amount $1012.50 has been processed.",
+    "sentAt": "2026-10-23T20:23:54.5034011+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "3deeea4d-48e2-4767-81f4-9c75ecea5461",
+    "orderId": 14,
+    "to": "youssef.adel@example.com",
+    "subject": "Order #14 Confirmation",
+    "body": "Thank you! Your order #14 of amount $149.45 has been processed.",
+    "sentAt": "2026-10-23T20:23:58.7621489+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "4075c50e-4d2d-4311-bbe2-84e9952191d6",
+    "orderId": 10,
+    "to": "dina.fathy@example.com",
+    "subject": "Order #10 Confirmation",
+    "body": "Thank you! Your order #10 of amount $93.80 has been processed.",
+    "sentAt": "2026-10-23T20:23:59.7344624+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "c126ecb6-16e9-4a4b-85f6-f1df3e7c47a2",
+    "orderId": 1,
+    "to": "ahmed.ali@example.com",
+    "subject": "Order #1 Confirmation",
+    "body": "Thank you! Your order #1 of amount $980.00 has been processed.",
+    "sentAt": "2026-10-23T20:24:02.2568904+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "bb86987c-8e8e-44d4-ba4c-bbb60e8ac10d",
+    "orderId": 16,
+    "to": "nour.khaled@example.com",
+    "subject": "Order #16 Confirmation",
+    "body": "Thank you! Your order #16 of amount $413.40 has been processed.",
+    "sentAt": "2026-10-23T20:24:04.5181512+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "3adacb07-c04f-4053-ae99-0b2452f0cf00",
+    "orderId": 5,
+    "to": "youssef.adel@example.com",
+    "subject": "Order #5 Confirmation",
+    "body": "Thank you! Your order #5 of amount $331.50 has been processed.",
+    "sentAt": "2026-10-23T20:24:06.47957+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "bd1f94e2-b9a5-45ad-9e08-5d3511b5a838",
+    "orderId": 2,
+    "to": "sara.mohamed@example.com",
+    "subject": "Order #2 Confirmation",
+    "body": "Thank you! Your order #2 of amount $767.30 has been processed.",
+    "sentAt": "2026-10-23T20:24:07.4150267+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "bca7f137-3bb4-4fff-9d8c-6800ceb80ab9",
+    "orderId": 1001,
+    "to": "customer_1001@example.com",
+    "subject": "Order #1001 Re-send",
+    "body": "Your order #1001 notification.",
+    "sentAt": "2026-10-23T20:24:52.2878645+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "81092525-97ce-424c-a11a-fd269857c32e",
+    "orderId": 1004,
+    "to": "customer_1004@example.com",
+    "subject": "Order #1004 Re-send",
+    "body": "Your order #1004 notification.",
+    "sentAt": "2026-10-23T20:24:52.287939+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "5955d0a5-2b4d-49ce-8bda-25a7d4dfd3b7",
+    "orderId": 1002,
+    "to": "customer_1002@example.com",
+    "subject": "Order #1002 Re-send",
+    "body": "Your order #1002 notification.",
+    "sentAt": "2026-10-23T20:24:52.2879795+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "60b47259-9b95-4ab3-83c9-292f3e38851b",
+    "orderId": 1003,
+    "to": "customer_1003@example.com",
+    "subject": "Order #1003 Re-send",
+    "body": "Your order #1003 notification.",
+    "sentAt": "2026-10-23T20:24:52.2880539+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "02c64abd-9983-4646-80fe-43bb66c79c55",
+    "orderId": 1005,
+    "to": "customer_1005@example.com",
+    "subject": "Order #1005 Re-send",
+    "body": "Your order #1005 notification.",
+    "sentAt": "2026-10-23T20:24:52.6683522+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "54bd9a59-5ca5-42a0-83de-8a2ef8d78b90",
+    "orderId": 1006,
+    "to": "customer_1006@example.com",
+    "subject": "Order #1006 Re-send",
+    "body": "Your order #1006 notification.",
+    "sentAt": "2026-10-23T20:24:52.7180699+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "bcaf55f1-7994-4c3c-b4ed-47b300f0e65c",
+    "orderId": 1007,
+    "to": "customer_1007@example.com",
+    "subject": "Order #1007 Re-send",
+    "body": "Your order #1007 notification.",
+    "sentAt": "2026-10-23T20:24:52.7760918+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "c03a4444-4439-4c15-89b2-d869a1b53709",
+    "orderId": 1008,
+    "to": "customer_1008@example.com",
+    "subject": "Order #1008 Re-send",
+    "body": "Your order #1008 notification.",
+    "sentAt": "2026-10-23T20:24:52.8233945+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "b515edcc-80b5-400e-8867-9de46b36c0f8",
+    "orderId": 1009,
+    "to": "customer_1009@example.com",
+    "subject": "Order #1009 Re-send",
+    "body": "Your order #1009 notification.",
+    "sentAt": "2026-10-23T20:24:53.0231554+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "7c4e63b7-1cd1-4680-9a15-9b9335b65b0b",
+    "orderId": 1010,
+    "to": "customer_1010@example.com",
+    "subject": "Order #1010 Re-send",
+    "body": "Your order #1010 notification.",
+    "sentAt": "2026-10-23T20:24:53.0633818+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "14aa9a91-d88e-4e93-96ea-53b4bc5e5538",
+    "orderId": 1011,
+    "to": "customer_1011@example.com",
+    "subject": "Order #1011 Re-send",
+    "body": "Your order #1011 notification.",
+    "sentAt": "2026-10-23T20:24:53.1287855+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "a455cfce-1d72-4fa6-a2d8-f8ecc22f546d",
+    "orderId": 1012,
+    "to": "customer_1012@example.com",
+    "subject": "Order #1012 Re-send",
+    "body": "Your order #1012 notification.",
+    "sentAt": "2026-10-23T20:24:53.177538+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "f36a2f4f-11d9-41ea-bddc-87e0229b6891",
+    "orderId": 1013,
+    "to": "customer_1013@example.com",
+    "subject": "Order #1013 Re-send",
+    "body": "Your order #1013 notification.",
+    "sentAt": "2026-10-23T20:24:53.3831837+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "539806a2-687f-4217-ac60-29b64dfb6fd4",
+    "orderId": 1014,
+    "to": "customer_1014@example.com",
+    "subject": "Order #1014 Re-send",
+    "body": "Your order #1014 notification.",
+    "sentAt": "2026-10-23T20:24:53.4001307+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "6f07be00-e219-4a9d-9b23-107c0f021c82",
+    "orderId": 1015,
+    "to": "customer_1015@example.com",
+    "subject": "Order #1015 Re-send",
+    "body": "Your order #1015 notification.",
+    "sentAt": "2026-10-23T20:24:53.4743315+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "fe6b2c09-3f76-428f-acab-50946b6e995b",
+    "orderId": 1016,
+    "to": "customer_1016@example.com",
+    "subject": "Order #1016 Re-send",
+    "body": "Your order #1016 notification.",
+    "sentAt": "2026-10-23T20:24:53.5153456+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "6dedf4c3-9599-486b-87ee-3e7a34c91998",
+    "orderId": 1017,
+    "to": "customer_1017@example.com",
+    "subject": "Order #1017 Re-send",
+    "body": "Your order #1017 notification.",
+    "sentAt": "2026-10-23T20:24:53.7284262+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "33fbb1e4-cef9-44a7-b514-e113d5f84837",
+    "orderId": 1018,
+    "to": "customer_1018@example.com",
+    "subject": "Order #1018 Re-send",
+    "body": "Your order #1018 notification.",
+    "sentAt": "2026-10-23T20:24:53.7625414+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "694353d4-09fc-467e-a917-c27c00e7664f",
+    "orderId": 1019,
+    "to": "customer_1019@example.com",
+    "subject": "Order #1019 Re-send",
+    "body": "Your order #1019 notification.",
+    "sentAt": "2026-10-23T20:24:53.8441686+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "c9ef3209-cbd3-4ee5-a842-c5c98603e306",
+    "orderId": 1020,
+    "to": "customer_1020@example.com",
+    "subject": "Order #1020 Re-send",
+    "body": "Your order #1020 notification.",
+    "sentAt": "2026-10-23T20:24:53.8858151+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "46be135d-454f-4813-9671-6de07faca53a",
+    "orderId": 1021,
+    "to": "customer_1021@example.com",
+    "subject": "Order #1021 Re-send",
+    "body": "Your order #1021 notification.",
+    "sentAt": "2026-10-23T20:24:54.0849499+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "c85372fb-2a43-42c2-914c-581672c925bd",
+    "orderId": 1022,
+    "to": "customer_1022@example.com",
+    "subject": "Order #1022 Re-send",
+    "body": "Your order #1022 notification.",
+    "sentAt": "2026-10-23T20:24:54.1183793+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "957e9adc-5d8b-4823-b927-6bb6487a054e",
+    "orderId": 1023,
+    "to": "customer_1023@example.com",
+    "subject": "Order #1023 Re-send",
+    "body": "Your order #1023 notification.",
+    "sentAt": "2026-10-23T20:24:54.209921+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "5e5e36e7-831d-4e65-8de3-7b4ce0ea8c19",
+    "orderId": 1024,
+    "to": "customer_1024@example.com",
+    "subject": "Order #1024 Re-send",
+    "body": "Your order #1024 notification.",
+    "sentAt": "2026-10-23T20:24:54.2512646+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "000919df-4623-43f0-a4d8-1ff9d23e0736",
+    "orderId": 1025,
+    "to": "customer_1025@example.com",
+    "subject": "Order #1025 Re-send",
+    "body": "Your order #1025 notification.",
+    "sentAt": "2026-10-23T20:24:54.4154976+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "39da7eaa-199f-41ec-9d3c-3bcec79df7f4",
+    "orderId": 1026,
+    "to": "customer_1026@example.com",
+    "subject": "Order #1026 Re-send",
+    "body": "Your order #1026 notification.",
+    "sentAt": "2026-10-23T20:24:54.4568154+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "6f2c24d2-b4d4-494d-936f-7a7da968441f",
+    "orderId": 1027,
+    "to": "customer_1027@example.com",
+    "subject": "Order #1027 Re-send",
+    "body": "Your order #1027 notification.",
+    "sentAt": "2026-10-23T20:24:54.5629368+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "b4ae46fb-020d-471d-bd12-403a9f1dd0f4",
+    "orderId": 1028,
+    "to": "customer_1028@example.com",
+    "subject": "Order #1028 Re-send",
+    "body": "Your order #1028 notification.",
+    "sentAt": "2026-10-23T20:24:54.5937441+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "9e91f4b2-5d4f-47cf-b25c-2c140aac2118",
+    "orderId": 1029,
+    "to": "customer_1029@example.com",
+    "subject": "Order #1029 Re-send",
+    "body": "Your order #1029 notification.",
+    "sentAt": "2026-10-23T20:24:54.7520278+03:00",
+    "attempts": 1,
+    "lastError": null
+  },
+  {
+    "id": "085dbae0-d853-4f35-a9df-7a21538ee4b6",
+    "orderId": 1030,
+    "to": "customer_1030@example.com",
+    "subject": "Order #1030 Re-send",
+    "body": "Your order #1030 notification.",
+    "sentAt": "2026-10-23T20:24:54.8021126+03:00",
+    "attempts": 1,
+    "lastError": null
+  }
+]

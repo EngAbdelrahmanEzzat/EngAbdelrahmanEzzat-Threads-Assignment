@@ -1,0 +1,7 @@
+Invoice for Order #6
+Customer ID: 6
+Status: Validated
+Subtotal: 45.00
+Discount: 9.00
+Shipping Cost: 6.90
+Total Amount: 42.90

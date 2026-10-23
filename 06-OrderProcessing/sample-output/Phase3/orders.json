@@ -1,0 +1,217 @@
+[
+  {
+    "id": 4,
+    "customerId": 4,
+    "items": [
+      {
+        "productId": 6,
+        "quantity": 1,
+        "unitPrice": 0
+      }
+    ],
+    "couponCode": null,
+    "subTotal": 0,
+    "discount": 0,
+    "shippingCost": 0,
+    "totalAmount": 0,
+    "status": "Rejected",
+    "createdAt": "2026-10-23T20:22:20.9587821+03:00",
+    "failureReason": "Customer #4 is inactive.",
+    "transactionId": null
+  },
+  {
+    "id": 1,
+    "customerId": 1,
+    "items": [
+      {
+        "productId": 1,
+        "quantity": 1,
+        "unitPrice": 1200.00
+      },
+      {
+        "productId": 3,
+        "quantity": 1,
+        "unitPrice": 25.00
+      }
+    ],
+    "couponCode": "SAVE10",
+    "subTotal": 1225.00,
+    "discount": 245.00,
+    "shippingCost": 0,
+    "totalAmount": 980.00,
+    "status": "Completed",
+    "createdAt": "2026-10-23T20:22:20.9587753+03:00",
+    "failureReason": null,
+    "transactionId": "TXN-B730CEDC"
+  },
+  {
+    "id": 9,
+    "customerId": 9,
+    "items": [
+      {
+        "productId": 3,
+        "quantity": 5,
+        "unitPrice": 0
+      }
+    ],
+    "couponCode": null,
+    "subTotal": 0,
+    "discount": 0,
+    "shippingCost": 0,
+    "totalAmount": 0,
+    "status": "Rejected",
+    "createdAt": "2026-10-23T20:22:20.9587892+03:00",
+    "failureReason": "Insufficient stock",
+    "transactionId": null
+  },
+  {
+    "id": 3,
+    "customerId": 3,
+    "items": [
+      {
+        "productId": 5,
+        "quantity": 2,
+        "unitPrice": 45.00
+      },
+      {
+        "productId": 8,
+        "quantity": 1,
+        "unitPrice": 70.00
+      }
+    ],
+    "couponCode": "WELCOME15",
+    "subTotal": 160.00,
+    "discount": 24.00,
+    "shippingCost": 10.70,
+    "totalAmount": 146.70,
+    "status": "Completed",
+    "createdAt": "2026-10-23T20:22:20.958781+03:00",
+    "failureReason": null,
+    "transactionId": "TXN-8EFD3767"
+  },
+  {
+    "id": 8,
+    "customerId": 8,
+    "items": [
+      {
+        "productId": 1,
+        "quantity": 1,
+        "unitPrice": 1200.00
+      }
+    ],
+    "couponCode": "SAVE10",
+    "subTotal": 1200.00,
+    "discount": 240.00,
+    "shippingCost": 0,
+    "totalAmount": 960.00,
+    "status": "Completed",
+    "createdAt": "2026-10-23T20:22:20.958788+03:00",
+    "failureReason": null,
+    "transactionId": "TXN-1F05A8B3"
+  },
+  {
+    "id": 5,
+    "customerId": 5,
+    "items": [
+      {
+        "productId": 7,
+        "quantity": 1,
+        "unitPrice": 350.00
+      }
+    ],
+    "couponCode": null,
+    "subTotal": 350.00,
+    "discount": 35.00,
+    "shippingCost": 16.50,
+    "totalAmount": 331.50,
+    "status": "Completed",
+    "createdAt": "2026-10-23T20:22:20.9587831+03:00",
+    "failureReason": null,
+    "transactionId": "TXN-8E1FF91E"
+  },
+  {
+    "id": 7,
+    "customerId": 7,
+    "items": [
+      {
+        "productId": 6,
+        "quantity": 1,
+        "unitPrice": 150.00
+      },
+      {
+        "productId": 8,
+        "quantity": 1,
+        "unitPrice": 70.00
+      }
+    ],
+    "couponCode": null,
+    "subTotal": 220.00,
+    "discount": 11.00,
+    "shippingCost": 9.00,
+    "totalAmount": 218.00,
+    "status": "Completed",
+    "createdAt": "2026-10-23T20:22:20.9587869+03:00",
+    "failureReason": null,
+    "transactionId": "TXN-FD186E6A"
+  },
+  {
+    "id": 2,
+    "customerId": 2,
+    "items": [
+      {
+        "productId": 2,
+        "quantity": 1,
+        "unitPrice": 800.00
+      }
+    ],
+    "couponCode": null,
+    "subTotal": 800.00,
+    "discount": 40.00,
+    "shippingCost": 7.30,
+    "totalAmount": 767.30,
+    "status": "Completed",
+    "createdAt": "2026-10-23T20:22:20.9587794+03:00",
+    "failureReason": null,
+    "transactionId": "TXN-0EE7A7BA"
+  },
+  {
+    "id": 10,
+    "customerId": 10,
+    "items": [
+      {
+        "productId": 4,
+        "quantity": 1,
+        "unitPrice": 90.00
+      }
+    ],
+    "couponCode": null,
+    "subTotal": 90.00,
+    "discount": 4.50,
+    "shippingCost": 8.30,
+    "totalAmount": 93.80,
+    "status": "Completed",
+    "createdAt": "2026-10-23T20:22:20.9587905+03:00",
+    "failureReason": null,
+    "transactionId": "TXN-62440A0B"
+  },
+  {
+    "id": 6,
+    "customerId": 6,
+    "items": [
+      {
+        "productId": 5,
+        "quantity": 1,
+        "unitPrice": 45.00
+      }
+    ],
+    "couponCode": "FLASH20",
+    "subTotal": 45.00,
+    "discount": 9.00,
+    "shippingCost": 6.90,
+    "totalAmount": 42.90,
+    "status": "Completed",
+    "createdAt": "2026-10-23T20:22:20.9587855+03:00",
+    "failureReason": null,
+    "transactionId": "TXN-33E416A6"
+  }
+]

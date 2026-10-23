@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
@@ -17,6 +17,33 @@ namespace OrderProcessing.Phase1
 
         private readonly SyncOrderValidator _syncOrderValidator;
         private readonly OrderValidator _orderValidator;
+
+        public Phase1Runner()
+        {
+            _store = new JsonFileStore();
+
+            var customerRepo = new CustomerRepository(_store);
+            var productRepo = new ProductRepository(_store);
+            var couponRepo = new CouponRepository(_store);
+
+            var syncCustomerRepo = new SyncCustomerRepository(_store);
+            var syncProductRepo = new SyncProductRepository(_store);
+            var syncCouponRepo = new SyncCouponRepository(_store);
+
+            _incomingOrderRepository = new IncomingOrderRepository(_store);
+            _orderRepository = new OrderRepository(_store);
+
+            _syncOrderValidator = new SyncOrderValidator(
+                syncCustomerRepo,
+                syncProductRepo,
+                syncCouponRepo);
+
+            _orderValidator = new OrderValidator(
+                customerRepo,
+                productRepo,
+                couponRepo,
+                _orderRepository);
+        }
 
         public Phase1Runner(
             JsonFileStore store,
@@ -41,6 +68,7 @@ namespace OrderProcessing.Phase1
                 ?? throw new ArgumentNullException(nameof(orderValidator));
         }
 
+      
         private TimeSpan RunSync(List<Order> orders)
         {
             var stopwatch = Stopwatch.StartNew();
@@ -63,9 +91,7 @@ namespace OrderProcessing.Phase1
 
             foreach (Order order in orders)
             {
-                //الكود ده بيننفز الاتنين ال validate و save .
                 await _orderValidator.ValidateOrderAsync(order, ct);
-               
             }
 
             stopwatch.Stop();
@@ -73,7 +99,7 @@ namespace OrderProcessing.Phase1
             return stopwatch.Elapsed;
         }
 
-        public async Task RunAsync(CancellationToken ct)
+        public async Task RunAsync(CancellationToken ct = default)
         {
             // Reset before Sync run
             await DataSeeder.ResetAsync(ct);
