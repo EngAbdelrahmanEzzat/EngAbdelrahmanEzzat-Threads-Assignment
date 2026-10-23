@@ -74,3 +74,40 @@ private static async Task<string> GetDataAsync()
 8. Why did the unprotected stock reservation oversell, and how did you prevent it?
 - ليه حصل oversell؟ بسبب مشكلة الـ Race Condition، لأن الـ Orders اتنفذت بالتوازي (Parallel)، وكل Order كان بيدخل يقرأ نفس كمية المخزون القديمة في نفس الوقت قبل ما التاني يلحق يخصم، فالاتنين لاقوا كمية كافية وخصموا فحصل بيع بالزيادة.
 - منعناها إزاي؟ استخدمنا `SemaphoreSlim(1, 1)` عشان نضمن إن خطوة (قراءة المخزون، والتحقق، والخصم، والحفظ) متقدرش أكتر من Task واحدة تنفذها في نفس اللحظة (Mutual Exclusion)، والـ Tasks التانية تستنى دورها بـ `await _stockSemaphore.WaitAsync(ct)`.
+
+
+## Phase 3 questions :
+1. Does async make one order's workflow faster?
+مش شرط هو في الاول والخر الميزه هي عدم عمل bolck لل ثريد عشان لما بقى نخش مثلا في الرامج الكبيره هيظهر الفرق بقى بين ال async , sync 
+بس 
+
+2. Why does async scale better for many orders?
+اولا عندما البرنامج بتاعك يكبر هتضطر تحول ل async لانها هي مش بتعمل اي بلوك للثريد عندما تكون في عمليه i/o operation لحد ما الناتج ييجي 
+لا هي طبعا الثريد بيروح ال thread pool يشوفله شغله تانيه على ما العمليه تخلص وودي هتفيدنا طبعا في البرامج الكبيره
+
+3. What happens to the sync version with 1,000 orders?
+طبعا مع ال 1000 اوردر مع كل اوردر هيعمل بلوك لكل حاجه تانيه لحد ما يخلص الاوردر ده ده رقم 1 
+رقم 2 عدد الثريدز اللي هتشتغل كبير جدا بسبب انك هنا مش بتستخدم الثريد بول 
+
+4.  Why is async essential for apps that call databases, files and APIs?
+مهم جدا اولا بسبب انك مش بتخلي الثريد بتاعك يستنى لحد ما يعمل عمليات ال I/O لا هو بيتحرر لحد ما العمليه دي تخلص وييجي ثريد تاني من الثريد 
+بول ممكن يكون هو او واحد تاني وبكدا انت بتكون وفرت wprkers كتير في العمليه بتاعتك 
+
+public async Task ProcessOrderAsync(Order order, Customer customer)
+{
+    await _orderRepository.SaveAsync(order);
+    _emailService.SendConfirmationAsync(order, customer);   // not awaited
+    Console.WriteLine("Order processing finished");
+}
+1. Find the problem in this code.
+المشكله هنا انك معملتش await للفانكشن ال async اللي عندك وده غلط
+
+2. Show what happens if the email is still being sent when the method returns, or when the console app exits.
+هيحصل انك اولا انك ظهرك رساله ان الايميل اتبعت بس ممكن يون لسه متبعتش وبيتبعت فكدا حصل تاخير ثانيا ممكن البرنامج يقفل ومش 
+هيبعت حاجه اصلا وكدا هيبقى فيه حاجه غلط
+
+3. Show what happens if the email operation throws an exception.
+هيحصل انك مش هتعرف برضو انه رمى اكسيبشن بسبب انك مش عامل await على الفانكشن فهيحل silent exception مش هيظهر الا لما 
+تعمل await عليها
+
+4. async void مش هتنفع تتعمل بسسب ان ال async مش هتنفع تشتغل مع vpid لانها بتشتغل مع task 

@@ -1,102 +1,63 @@
 using OrderProcessing.Phase1;
 using OrderProcessing.Phase1.Repositories;
 using OrderProcessing.Phase2;
+using OrderProcessing.Phase3;
 using OrderProcessing.Shared;
 using System.Diagnostics;
 
 public class Program
 {
+
     public static async Task Main()
     {
-       
 
+        //var cts = new CancellationTokenSource();
+        //var ct = cts.Token;
 
-        //Phase 2
-        // Create dependencies
+        //Phase3Runner p = new Phase3Runner();
+        //await Phase3Runner.RunComparisonAsync(ct);
         var store = new JsonFileStore();
-        var customerRepository = new CustomerRepository(store);
-        var couponRepository = new CouponRepository(store);
-        var pricingService = new PricingService(store, customerRepository, couponRepository, new[] { 7 });
-        // Create OrderPricer
-        var orderPricer = new OrderPricer(pricingService);
 
-
-        //Get Order #1 from your existing orders data
-        var order = new Order
+        OrderProcessing.Phase3.OrderRepository orderrepaository = new OrderProcessing.Phase3.OrderRepository(store, enableFailures: false);
+        OrderProcessing.Phase3.EmailService email = new OrderProcessing.Phase3.EmailService(store, enableFailures: false);
+        var customer = new Customer
         {
             Id = 1,
-            CustomerId = 1,
-            Items = [new OrderItem { ProductId = 1, Quantity = 1 }
-            , new OrderItem { ProductId = 3, Quantity = 1 }]
-            ,
-            CouponCode = "SAVE10"
-            ,
-            Status = OrderStatus.Validated
+            Name = "Abdelrahman",
+            Email = "abdelrahman@example.com",
+            IsActive = true,
+            LoyaltyTier = LoyaltyTier.Gold
         };
 
-        // Measure Parallel execution
-        var stopwatch = Stopwatch.StartNew();
+        var order = new Order
+        {
+            Id = 100,
+            CustomerId = customer.Id,
+            Items = new List<OrderItem>(),
+            SubTotal = 1000m,
+            Discount = 0m,
+            ShippingCost = 50m,
+            TotalAmount = 1050m,
+            Status = OrderStatus.Validated,
+            CreatedAt = DateTime.Now
+        };
 
-        await orderPricer.PriceOrderAsync(order, CancellationToken.None);
-
-        stopwatch.Stop();
-        Console.WriteLine($"Parallel: {stopwatch.ElapsedMilliseconds} ms");
-
-        // Measure Sequential execution
-        stopwatch.Restart();
-
-        await orderPricer.PriceOrderSequentialAsync(order, CancellationToken.None);
-
-        stopwatch.Stop();
-        Console.WriteLine($"Sequential: {stopwatch.ElapsedMilliseconds} ms");
-
-
-        Console.WriteLine("------------------------------------------------");
-
-        //JsonFileStore store = new JsonFileStore();
-
-        RaceConditionDemo raceConditionDemo =
-            new RaceConditionDemo(store);
-
-        OrderRepository orderRepository =
-            new OrderRepository(store);
-
-        ProductRepository productRepository =
-            new ProductRepository(store);
-
-        
-
-        OrderValidator orderValidator = new OrderValidator(
-            customerRepository,
-            productRepository,
-            couponRepository,
-            orderRepository);
-
-        OrderProcessorV2 orderProcessor = new OrderProcessorV2(
-            store,
-            raceConditionDemo,
-            orderPricer,
-            orderRepository);
-
-        ReportGenerator reportGenerator = new ReportGenerator(
-            orderRepository,
-            productRepository,
-            store);
-
-        Phase2Runner phase2Runner = new Phase2Runner(
-            orderProcessor,
-            store,
-            raceConditionDemo,
-            orderPricer,
-            orderValidator,
-            orderRepository,
-            reportGenerator);
-
-        await phase2Runner.RunAsync();
-
-
-
+        await ProcessOrderAsync(order, customer.Email, orderrepaository, email);
     }
 
-    
+
+        public static  async Task ProcessOrderAsync(Order order, string customer, OrderProcessing.Phase3.OrderRepository orderrepaository, OrderProcessing.Phase3.EmailService email)
+        {
+        await orderrepaository.SaveAsync(order);
+         await email.SendOrderConfirmationAsync(order, customer);   // not awaited
+        Console.WriteLine("Order processing finished");
+        }
+
+
+
 }
+
+
+
+
+
